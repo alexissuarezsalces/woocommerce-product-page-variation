@@ -1,0 +1,40 @@
+<script>
+(function($){
+    var empty = $('#tab-title-info').html();
+    console.log(empty);
+    if( empty === '' ){
+      $('.woocommerce-Tabs-panel--info').addClass('hide');
+    }
+  })(jQuery);
+
+  // Cambiar desplegable por botones en las variaciones de productos de WooCommerce
+  (function( $ ) {
+    'use strict';
+  
+      // pa_color = es el ID del atributo de selección que vamos a cambiar
+      create_options_buttons('pa_seeds');
+  
+      function create_options_buttons( el ){
+          $('#btns-' + el).remove();
+          $('<div id="btns-' + el + '" class="dcms-btns"></div>').insertAfter('#' + el);
+          $('#' + el).hide();
+          $('#' + el + ' option').each(function(i,e){
+              $('<input class="paso1" type="radio" />')
+                      .attr('value', $(this).val())
+                      .attr('name', 'r' + el )
+                      .attr('id', 'r' + el + i)
+                      .attr('checked', $(this).is(':selected'))
+                      .click( function() {
+                          $('#' + el).val($(this).val()).trigger('change');
+                      })
+                  .add($('<label class="quepasa" for="'+ 'r' + el + i +'">'+ this.text +'</label>'))
+                  .appendTo('#btns-' + el);
+          });
+      }
+  
+      $('.reset_variations').click(function(){
+          $('.dcms-btns input:first-child').prop('checked', true);
+      });
+  
+  })( jQuery );
+</script>
